@@ -137,6 +137,16 @@ defmodule JOSETest do
     assert binary == :erlang.element(2, JOSE.JWE.to_binary(jwe))
     assert jwe == JOSE.JWE.from_binary(binary)
     assert jwe == JOSE.JWE.from(jwe)
+    # json
+    if Code.ensure_loaded?(:json) do
+      JOSE.json_module(:json)
+      assert :jose_json_json == JOSE.json_module()
+      assert map == :erlang.element(2, JOSE.JWE.to_map(jwe))
+      assert binary == :erlang.element(2, JOSE.JWE.to_binary(jwe))
+      assert jwe == JOSE.JWE.from_binary(binary)
+      assert jwe == JOSE.JWE.from(jwe)
+    end
+
     # thoas
     JOSE.json_module(:thoas)
     assert :jose_json_thoas == JOSE.json_module()
